@@ -1,5 +1,4 @@
 
-
 #include "ping.h"
 
 #define MAX_SEND_TIME 5
@@ -21,17 +20,17 @@ int main(int argc, char *argv[])
 	}
 	struct hostent *host;
 	int netaddr;
-	/*�ж�������������ip��ַ*/
+	/*如果传递的是主机名 */
     if( (netaddr=inet_addr(argv[1])) == INADDR_NONE)
     {       
-		if((host = gethostbyname(argv[1]))== NULL) /*��������*/
-        {
-			 perror("gethostbyname error");
+	if((host = gethostbyname(argv[1]))== NULL) /*获取ip*/ 
+	{
+	     perror("gethostbyname error");
              exit(1);
         }
         memcpy((char *)&dest_addr.sin_addr, host->h_addr, host->h_length);
      }
-     else    /*��ip��ַ*/
+     else    /*传递的是ip*/
          dest_addr.sin_addr.s_addr = netaddr;
 	
 

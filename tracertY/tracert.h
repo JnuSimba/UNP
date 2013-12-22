@@ -4,10 +4,6 @@
  *  - set TTL = 2, send ICMP ECHO packet, get time out packet
  *  - ...until get ICMP ECHO REPLY packet
  * ============================================================================ 
- * Version: 0.0
- * File:	tracert.h
- * Author:	yoyo
- * Time:	2010-03-10
  */
 
 #ifndef _TRACERT_H

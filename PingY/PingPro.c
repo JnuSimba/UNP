@@ -1,12 +1,4 @@
-/*
- * Realize ping command
- *
- * ============================================================================
- * Version: 	0.0
- * File:	PingPro.c
- * Author:	yoyo
- * Time:	2010-03-08
- */
+
 
 #include "ping.h"
 
@@ -29,17 +21,17 @@ int main(int argc, char *argv[])
 	}
 	struct hostent *host;
 	int netaddr;
-	/*ÅĞ¶ÏÊÇÖ÷»úÃû»¹ÊÇipµØÖ·*/
+	/*ï¿½Ğ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ipï¿½ï¿½Ö·*/
     if( (netaddr=inet_addr(argv[1])) == INADDR_NONE)
     {       
-		if((host = gethostbyname(argv[1]))== NULL) /*ÊÇÖ÷»úÃû*/
+		if((host = gethostbyname(argv[1]))== NULL) /*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
         {
 			 perror("gethostbyname error");
              exit(1);
         }
         memcpy((char *)&dest_addr.sin_addr, host->h_addr, host->h_length);
      }
-     else    /*ÊÇipµØÖ·*/
+     else    /*ï¿½ï¿½ipï¿½ï¿½Ö·*/
          dest_addr.sin_addr.s_addr = netaddr;
 	
 

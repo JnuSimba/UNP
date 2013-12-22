@@ -1,12 +1,4 @@
-/*
-* Realize ping command by myself
-*
-* ============================================================================
-* Version: 0.0
-* File:	ping.h
-* Author:	yoyo
-* Time:	2010-03-08
-*/
+
 
 #ifndef PING_H
 #define PING_H

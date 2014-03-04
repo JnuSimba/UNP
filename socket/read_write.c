@@ -71,6 +71,7 @@ ssize_t readline(int sockfd, void* buf, size_t maxline)
 	int nread;
 	char* bufp = buf;
 	int nleft = maxline;
+	int count = 0;
 	while (1) {
 		ret = recv_peek(sockfd, bufp, nleft);
 		if (ret < 0)
@@ -85,8 +86,9 @@ ssize_t readline(int sockfd, void* buf, size_t maxline)
 	 			ret = readn(sockfd, bufp, i+1);
 				if (ret != i+1)
 					exit(EXIT_FAILURE);
-
-				return ret;
+				
+				bufp[i＋1] = '\0';
+				return ret + count;
 			}
 		}
 		if (nread > nleft)
@@ -97,6 +99,7 @@ ssize_t readline(int sockfd, void* buf, size_t maxline)
 			exit(EXIT_FAILURE);
 
 		bufp += nread;
+		count += nread;
 	}
 
 	return -1;

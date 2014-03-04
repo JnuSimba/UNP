@@ -1,9 +1,8 @@
-
 #include "tracert.h"
 
 #define UDPPACKET_SIZE 12
-/* 40×Ö½ÚµÄÊı¾İ±¨°üº¬20×Ö½ÚµÄIPÊ×²¿£¬8×Ö½ÚµÄUDPÊ×²¿ºÍ12×Ö½ÚµÄÓÃ»§Êı¾İ
-	ÔÚ¡¶tcp/ipĞ­ÒéÏê½â¡·ÖĞ12×Ö½ÚÊı¾İ°üº¬Ã¿·¢Ò»¸öÊı¾İ±¨¾Í¼Ó1µÄĞòºÅ£¬ËÍ³öTTLµÄ¸±±¾ÒÔ¼°·¢ËÍÊı¾İ±¨µÄÊ±¼ä£©
+/* 40ï¿½Ö½Úµï¿½ï¿½ï¿½ï¿½İ±ï¿½ï¿½ï¿½ï¿½ï¿½20ï¿½Ö½Úµï¿½IPï¿½×²ï¿½ï¿½ï¿½8ï¿½Ö½Úµï¿½UDPï¿½×²ï¿½ï¿½ï¿½12ï¿½Ö½Úµï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½
+	ï¿½Ú¡ï¿½tcp/ipĞ­ï¿½ï¿½ï¿½ï¿½ï¿½â¡·ï¿½ï¿½12ï¿½Ö½ï¿½ï¿½ï¿½ï¿½İ°ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½İ±ï¿½ï¿½Í¼ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½Å£ï¿½ï¿½Í³ï¿½TTLï¿½Ä¸ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ±ï¿½ï¿½ï¿½Ê±ï¿½ä£©
 */
 void send_tracert(int sndsock, struct sockaddr_in *dstaddr, int ttl)
 {
@@ -37,7 +36,7 @@ int recv_tracert(int rcvsock, struct sockaddr_in *srcaddr, char *databuf, int bu
 	int len = sizeof(struct sockaddr_in);
 	
 	struct timeval timeout = {3, 0};
-    setsockopt(rcvsock, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(struct timeval));
+    	setsockopt(rcvsock, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(struct timeval));
 
 	if((n = recvfrom(rcvsock, databuf, buflen, 0, (struct sockaddr *)srcaddr, &len)) == -1)
 	{
@@ -57,10 +56,10 @@ int recv_tracert(int rcvsock, struct sockaddr_in *srcaddr, char *databuf, int bu
 int check_packet(u_char *databuf, int buflen)
 {
 	int hlen1,hlen2,icmplen,ret;
-    socklen_t len;
-    struct ip *ip,*hip;
+    	socklen_t len;
+	struct ip *ip,*hip;
 	struct icmp *icmp;
-    struct udphdr *udp;
+	struct udphdr *udp;
 
 	ip = (struct ip*)databuf;
 	hlen1 = ip->ip_hl << 2;

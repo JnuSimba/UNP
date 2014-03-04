@@ -71,7 +71,7 @@ int main(void)
 		
 		char sendbuf[1024] = {0};
 		while (fgets(sendbuf, sizeof(sendbuf), stdin) != NULL) {
-			write(conn, sendbuf, sizeof(sendbuf));
+			write(conn, sendbuf, strlen(sendbuf));
 			memset(sendbuf, 0, sizeof(sendbuf));
 		}
 		exit(EXIT_SUCCESS);

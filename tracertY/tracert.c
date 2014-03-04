@@ -1,9 +1,10 @@
 #include "tracert.h"
 
 #define UDPPACKET_SIZE 12
-/* 40�ֽڵ����ݱ�����20�ֽڵ�IP�ײ���8�ֽڵ�UDP�ײ���12�ֽڵ��û�����
-	�ڡ�tcp/ipЭ�����⡷��12�ֽ����ݰ���ÿ��һ�����ݱ��ͼ�1�����ţ��ͳ�TTL�ĸ����Լ��������ݱ���ʱ�䣩
-*/
+/* 40字节的数据报包含20字节的IP首部，8字节的UDP首部和12字节的用户数据
+  在《tcp/ip协议详解》中12字节数据包含每发一个数据报就加1的序号，送出TTL的副本以及发送数据报的时间）
+ */
+
 void send_tracert(int sndsock, struct sockaddr_in *dstaddr, int ttl)
 {
 	char buf[UDPPACKET_SIZE];

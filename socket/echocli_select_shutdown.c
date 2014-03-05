@@ -69,7 +69,7 @@ void do_echocli(int sock)
 
 			if (fgets(sendbuf, sizeof(sendbuf), stdin) == NULL) {
 				stdineof = 1; //表示已经输入完毕
-			/* 关闭sock的写端，还能够接收数据，在sock的缓冲区末尾添加一个FIN段 */
+			/* 关闭sock的写端，还能够接收数据，在sock的发送缓冲区末尾添加一个FIN段 */
 				shutdown(sock, SHUT_WR);
 			}
 			else {

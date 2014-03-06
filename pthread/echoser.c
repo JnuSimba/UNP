@@ -34,6 +34,7 @@ void echo_srv(int conn)
                 fputs(recvbuf, stdout);
                 write(conn, recvbuf, ret);
         }
+        close(conn);
 }
 
 void* thread_routine(void *arg)

@@ -23,5 +23,8 @@ int main(void)
 		printf("send ok\n");
 	}
 	
+	free(fifo);
+	fifo = NULL;
+	
 	return 0;
 }

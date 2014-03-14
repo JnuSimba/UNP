@@ -114,6 +114,7 @@ static void privop_port_get_data_sock(session_t *sess)
 	priv_sock_send_result(sess->nobody_fd, PRIV_SOCK_RESULT_OK);
 	priv_sock_send_fd(sess->nobody_fd, fd);
 	close(fd); //父进程必须close(fd)，否则子进程关闭close(data_fd)的时候也不会发送FIN段。
+	//因为通过unix域协议传递套接字等于是对方也打开套接字，而直接简单的赋值是没有这样的效果的。
 
 }
 

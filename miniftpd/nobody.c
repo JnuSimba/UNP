@@ -10,16 +10,16 @@ static void privop_pasv_listen(session_t *sess);
 static void privop_pasv_accept(session_t *sess);
 
 int capset(cap_user_header_t hdrp, const cap_user_data_t datap);
-// capsetÊÇÒ»¸öÔ­Ê¼µÄÏµÍ³½Ó¿Úº¯Êı£¬µ«ÊÇÔÚÍ·ÎÄ¼ş<linux/capability>ÊÇÃ»ÓĞ¶¨ÒåµÄ
-// ÔÚÕâÀïÎÒÃÇÖØĞÂÊ¹ÓÃÏµÍ³µ÷ÓÃÀ´Êµ
+// capsetæ˜¯ä¸€ä¸ªåŸå§‹çš„ç³»ç»Ÿæ¥å£å‡½æ•°ï¼Œä½†æ˜¯åœ¨å¤´æ–‡ä»¶<linux/capability>æ˜¯æ²¡æœ‰å®šä¹‰çš„
+// åœ¨è¿™é‡Œæˆ‘ä»¬é‡æ–°ä½¿ç”¨ç³»ç»Ÿè°ƒç”¨æ¥å®ç°
 int capset(cap_user_header_t hdrp, const cap_user_data_t datap)
 {
-	return syscall(__NR_capset, hdrp, datap);//__NR_capset ÊÇÏµÍ³µ÷ÓÃºÅ
+	return syscall(__NR_capset, hdrp, datap);//__NR_capset æ˜¯ç³»ç»Ÿè°ƒç”¨å·
 }
-// Ê¹nobody½ø³ÌÓµÓĞbind socketµÄÈ¨ÏŞ
+// ä½¿nobodyè¿›ç¨‹æ‹¥æœ‰bind socketçš„æƒé™
 void minimize_privilege(void)
 {
-	//½«µ±Ç°½ø³ÌµÄÓĞĞ§ÓÃ»§¸ü¸ÄÎªnobody
+	//å°†å½“å‰è¿›ç¨‹çš„æœ‰æ•ˆç”¨æˆ·æ›´æ”¹ä¸ºnobody
 	struct passwd* pw = getpwnam("nobody");
 	if (pw == NULL)
 		ERR_EXIT("getpwnam");
@@ -56,7 +56,7 @@ void handle_nobody(session_t* sess)
 
 	while (1)
 	{
-		// »ñÈ¡ftpĞ­Òé½ø³Ì´«µİµÄÏûÏ¢
+		// è·å–ftpåè®®è¿›ç¨‹ä¼ é€’çš„æ¶ˆæ¯
 		cmd = priv_sock_get_cmd(sess->nobody_fd);
 		switch (cmd)
 		{
@@ -93,8 +93,10 @@ static void privop_port_get_data_sock(session_t *sess)
 	addr.sin_port = htons(port);
 	addr.sin_addr.s_addr = inet_addr(ip);
 
-// µ±¶à¸ö¿Í»§¶ËÁ¬½Ó·şÎñÆ÷Ê±£¬¿ÉÒÔÍ¬Ê±ÓĞ¶à¸önobody½ø³Ìbind 20¶Ë¿Ú+ip£¬ÒòÎª´ËÊ±¿Í»§¶Ë¸ø³öµÄ¶Ë¿ÚÊÇËæ»úµÄ£¬¹Ê
-// ËÄÔª×é»¹ÊÇÄÜÊ¶±ğÒ»¸öÊı¾İÁ¬½Ó
+// å½“å¤šä¸ªå®¢æˆ·ç«¯è¿æ¥æœåŠ¡å™¨æ—¶ï¼Œå¯ä»¥åŒæ—¶æœ‰å¤šä¸ªnobodyè¿›ç¨‹bind 20ç«¯å£+ipï¼Œå› ä¸ºæ­¤æ—¶å®¢æˆ·ç«¯ç»™å‡ºçš„ç«¯å£æ˜¯éšæœºçš„ï¼Œæ•…
+// å››å…ƒç»„è¿˜æ˜¯èƒ½è¯†åˆ«ä¸€ä¸ªæ•°æ®è¿æ¥
+// å½“å®¢æˆ·ç«¯ä½äºNATæœåŠ¡å™¨ä¹‹åä½¿ç”¨PORTæ¨¡å¼æ—¶ï¼Œéœ€è¦åœ¨NATæœåŠ¡å™¨ä¸Šé…ç½®æ˜ å°„æ‰èƒ½è®©æœåŠ¡å™¨ä¸»åŠ¨è¿æ¥åˆ°å®¢æˆ·ç«¯
+// æ‰€ä»¥é‡‡ç”¨çš„æ˜¯æ ‡å‡†å›ºå®šçš„20ç«¯å£ï¼Œè¿™æ ·NATæœåŠ¡å™¨å°±ä¸ç”¨ç»´æŠ¤å¾ˆå¤šçš„è¡¨ç›®
 	int fd = tcp_client(20);
 	if (fd == -1)
 	{
@@ -111,7 +113,7 @@ static void privop_port_get_data_sock(session_t *sess)
 
 	priv_sock_send_result(sess->nobody_fd, PRIV_SOCK_RESULT_OK);
 	priv_sock_send_fd(sess->nobody_fd, fd);
-	close(fd); //¸¸½ø³Ì±ØĞëclose(fd)£¬·ñÔò×Ó½ø³Ì¹Ø±Õclose(data_fd)µÄÊ±ºòÒ²²»»á·¢ËÍFIN¶Î¡£
+	close(fd); //çˆ¶è¿›ç¨‹å¿…é¡»close(fd)ï¼Œå¦åˆ™å­è¿›ç¨‹å…³é—­close(data_fd)çš„æ—¶å€™ä¹Ÿä¸ä¼šå‘é€FINæ®µã€‚
 
 }
 
@@ -129,7 +131,7 @@ static void privop_pasv_listen(session_t *sess)
 {
 	char ip[20] = {0};
 	getlocalip(ip);
-	// ·şÎñÆ÷ bind µÄ±ØĞëÊÇËæ»ú¶Ë¿Ú£¬Òò´Ë´ËÊ±¿ÉÄÜÓĞ¶à¸önobody ½ø³ÌÔÚlisten, ÕâÑù²Å²»»á³åÍ»
+	// æœåŠ¡å™¨ bind çš„å¿…é¡»æ˜¯éšæœºç«¯å£ï¼Œå› æ­¤æ­¤æ—¶å¯èƒ½æœ‰å¤šä¸ªnobody è¿›ç¨‹åœ¨listen, è¿™æ ·æ‰ä¸ä¼šå†²çª
 	sess->pasv_listen_fd = tcp_server(ip, 0);
 	struct sockaddr_in localaddr;
 	socklen_t addrlen = sizeof(localaddr);
@@ -143,7 +145,7 @@ static void privop_pasv_listen(session_t *sess)
 
 static void privop_pasv_accept(session_t *sess)
 {
-	// ÒòÎª·şÎñÆ÷¶Ë¸ø³öµÄ¶Ë¿ÚÊÇËæ»úµÄ£¬accept ·µ»ØÊı¾İÌ×½Ó×Ö¹ØÁªµÄ¶Ë¿ÚÊÇ½ø³Ì¶ÀÁ¢µÄ
+	// å› ä¸ºæœåŠ¡å™¨ç«¯ç»™å‡ºçš„ç«¯å£æ˜¯éšæœºçš„ï¼Œaccept è¿”å›æ•°æ®å¥—æ¥å­—å…³è”çš„ç«¯å£æ˜¯è¿›ç¨‹ç‹¬ç«‹çš„
 	int fd = accept_timeout(sess->pasv_listen_fd, NULL, tunable_accept_timeout);
 	close(sess->pasv_listen_fd);
 	sess->pasv_listen_fd = -1;

@@ -39,21 +39,21 @@ int main(void)
 	int conn;
 	session_t sess =
 	{
-		//��������
+		//控制连接
 		0, -1, "", "", "",
 
-		// ftpЭ��������nobody����ͨ��
+		// ftp协议进程与nobody进程通信
 		-1, -1,
 		
-		//����
+		//限速
 		0, 0, 0, 0,
-		// ��������
+		// 数据连接
 		NULL, -1, -1, 0,
 
-		// ftpЭ������
+		// ftp协议控制
 		0, 0, NULL, 0,
 
-		//�ͻ�������������
+		//客户端连接数控制
 		0, 0
 	};
 
@@ -112,7 +112,7 @@ int main(void)
 void handle_sigchld(int sig)
 {
 	pid_t pid;
-	// ���������ӽ���ͬʱ�Ͽ�����
+	// 如果多个子进程同时断开连接
 	while ((pid = waitpid(-1 ,NULL, WNOHANG)) > 0)
 	{
 		unsigned int* ip = hash_lookup_entry(s_pid_ip_hash, &pid, sizeof(pid));

@@ -9,7 +9,7 @@
 #include "hash_link.h"
 
 
-session_t* p_sess;
+extern session_t* p_sess;
 static unsigned int cur_childrens;
 
 void handle_sigchld(int);

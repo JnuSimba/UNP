@@ -1,7 +1,7 @@
 #include "sysutil.h"
 
 
-// ·µ»Øsock, port=0 ²»°ó¶¨¶Ë¿Ú
+// è¿”å›sock, port=0 ä¸ç»‘å®šç«¯å£
 int tcp_client(unsigned int port)
 {
 	int sock;
@@ -30,12 +30,12 @@ int tcp_client(unsigned int port)
 }
 
 /**
- * tcp_server - Æô¶¯tcp·şÎñÆ÷
- * @host: ·şÎñÆ÷IPµØÖ·»òÕß·şÎñÆ÷Ö÷»úÃû
- * @port: ·şÎñÆ÷¶Ë¿Ú
- * ³É¹¦·µ»Ø¼àÌıÌ×½Ó×Ö
+ * tcp_server - å¯åŠ¨tcpæœåŠ¡å™¨
+ * @host: æœåŠ¡å™¨IPåœ°å€æˆ–è€…æœåŠ¡å™¨ä¸»æœºå
+ * @port: æœåŠ¡å™¨ç«¯å£
+ * æˆåŠŸè¿”å›ç›‘å¬å¥—æ¥å­—
  */
- // port = 0 »áËæ»úÑ¡ÔñÒ»¸ö¶Ë¿Ú
+ // port = 0 ä¼šéšæœºé€‰æ‹©ä¸€ä¸ªç«¯å£
  int tcp_server(const char* host, unsigned short port)
  {
 	int listenfd;
@@ -48,7 +48,7 @@ int tcp_client(unsigned int port)
 
 	if (host != NULL)
 	{
-		if (inet_aton(host, &servaddr.sin_addr) == 0)//ËµÃ÷ÊÇÖ÷»úÃû
+		if (inet_aton(host, &servaddr.sin_addr) == 0)//è¯´æ˜æ˜¯ä¸»æœºå
 		{
 			struct hostent *hp;
 			if ((hp = gethostbyname(host)) == NULL)
@@ -58,7 +58,7 @@ int tcp_client(unsigned int port)
 		}
 
 	}
-	else //°ó¶¨Ö÷»úµÄËùÓĞipµØÖ·
+	else //ç»‘å®šä¸»æœºçš„æ‰€æœ‰ipåœ°å€
 		servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
 	
 	servaddr.sin_port = htons(port);
@@ -123,8 +123,8 @@ int getlocalip(char* ipaddr)
 
 
 /**
- * activate_noblock - ÉèÖÃI/OÎª·Ç×èÈûÄ£Ê½
- * @fd: ÎÄ¼şÃè·û·û
+ * activate_noblock - è®¾ç½®I/Oä¸ºéé˜»å¡æ¨¡å¼
+ * @fd: æ–‡ä»¶æç¬¦ç¬¦
  */
 void activate_nonblock(int fd)
 {
@@ -140,8 +140,8 @@ void activate_nonblock(int fd)
 }
 
 /**
- * deactivate_nonblock - ÉèÖÃI/OÎª×èÈûÄ£Ê½
- * @fd: ÎÄ¼şÃè·û·û
+ * deactivate_nonblock - è®¾ç½®I/Oä¸ºé˜»å¡æ¨¡å¼
+ * @fd: æ–‡ä»¶æç¬¦ç¬¦
  */
 void deactivate_nonblock(int fd)
 {
@@ -157,10 +157,10 @@ void deactivate_nonblock(int fd)
 }
 
 /**
- * read_timeout - ¶Á³¬Ê±¼ì²âº¯Êı£¬²»º¬¶Á²Ù×÷
- * @fd: ÎÄ¼şÃèÊö·û
- * @wait_seconds: µÈ´ı³¬Ê±ÃëÊı£¬Èç¹ûÎª0±íÊ¾²»¼ì²â³¬Ê±
- * ³É¹¦£¨Î´³¬Ê±£©·µ»Ø0£¬Ê§°Ü·µ»Ø-1£¬³¬Ê±·µ»Ø-1²¢ÇÒerrno = ETIMEDOUT
+ * read_timeout - è¯»è¶…æ—¶æ£€æµ‹å‡½æ•°ï¼Œä¸å«è¯»æ“ä½œ
+ * @fd: æ–‡ä»¶æè¿°ç¬¦
+ * @wait_seconds: ç­‰å¾…è¶…æ—¶ç§’æ•°ï¼Œå¦‚æœä¸º0è¡¨ç¤ºä¸æ£€æµ‹è¶…æ—¶
+ * æˆåŠŸï¼ˆæœªè¶…æ—¶ï¼‰è¿”å›0ï¼Œå¤±è´¥è¿”å›-1ï¼Œè¶…æ—¶è¿”å›-1å¹¶ä¸”errno = ETIMEDOUT
  */
 int read_timeout(int fd, unsigned int wait_seconds)
 {
@@ -193,10 +193,10 @@ int read_timeout(int fd, unsigned int wait_seconds)
 }
 
 /**
- * write_timeout - ¶Á³¬Ê±¼ì²âº¯Êı£¬²»º¬Ğ´²Ù×÷
- * @fd: ÎÄ¼şÃèÊö·û
- * @wait_seconds: µÈ´ı³¬Ê±ÃëÊı£¬Èç¹ûÎª0±íÊ¾²»¼ì²â³¬Ê±
- * ³É¹¦£¨Î´³¬Ê±£©·µ»Ø0£¬Ê§°Ü·µ»Ø-1£¬³¬Ê±·µ»Ø-1²¢ÇÒerrno = ETIMEDOUT
+ * write_timeout - è¯»è¶…æ—¶æ£€æµ‹å‡½æ•°ï¼Œä¸å«å†™æ“ä½œ
+ * @fd: æ–‡ä»¶æè¿°ç¬¦
+ * @wait_seconds: ç­‰å¾…è¶…æ—¶ç§’æ•°ï¼Œå¦‚æœä¸º0è¡¨ç¤ºä¸æ£€æµ‹è¶…æ—¶
+ * æˆåŠŸï¼ˆæœªè¶…æ—¶ï¼‰è¿”å›0ï¼Œå¤±è´¥è¿”å›-1ï¼Œè¶…æ—¶è¿”å›-1å¹¶ä¸”errno = ETIMEDOUT
  */
 int write_timeout(int fd, unsigned int wait_seconds)
 {
@@ -229,11 +229,11 @@ int write_timeout(int fd, unsigned int wait_seconds)
 }
 
 /**
- * accept_timeout - ´ø³¬Ê±µÄaccept
- * @fd: Ì×½Ó×Ö
- * @addr: Êä³ö²ÎÊı£¬·µ»Ø¶Ô·½µØÖ·
- * @wait_seconds: µÈ´ı³¬Ê±ÃëÊı£¬Èç¹ûÎª0±íÊ¾Õı³£Ä£Ê½
- * ³É¹¦£¨Î´³¬Ê±£©·µ»ØÒÑÁ¬½ÓÌ×½Ó×Ö£¬³¬Ê±·µ»Ø-1²¢ÇÒerrno = ETIMEDOUT
+ * accept_timeout - å¸¦è¶…æ—¶çš„accept
+ * @fd: å¥—æ¥å­—
+ * @addr: è¾“å‡ºå‚æ•°ï¼Œè¿”å›å¯¹æ–¹åœ°å€
+ * @wait_seconds: ç­‰å¾…è¶…æ—¶ç§’æ•°ï¼Œå¦‚æœä¸º0è¡¨ç¤ºæ­£å¸¸æ¨¡å¼
+ * æˆåŠŸï¼ˆæœªè¶…æ—¶ï¼‰è¿”å›å·²è¿æ¥å¥—æ¥å­—ï¼Œè¶…æ—¶è¿”å›-1å¹¶ä¸”errno = ETIMEDOUT
  */
 int accept_timeout(int fd, struct sockaddr_in *addr, unsigned int wait_seconds)
 {
@@ -274,10 +274,10 @@ int accept_timeout(int fd, struct sockaddr_in *addr, unsigned int wait_seconds)
 
 /**
  * connect_timeout - connect
- * @fd: Ì×½Ó×Ö
- * @addr: ÒªÁ¬½ÓµÄ¶Ô·½µØÖ·
- * @wait_seconds: µÈ´ı³¬Ê±ÃëÊı£¬Èç¹ûÎª0±íÊ¾Õı³£Ä£Ê½
- * ³É¹¦£¨Î´³¬Ê±£©·µ»Ø0£¬Ê§°Ü·µ»Ø-1£¬³¬Ê±·µ»Ø-1²¢ÇÒerrno = ETIMEDOUT
+ * @fd: å¥—æ¥å­—
+ * @addr: è¦è¿æ¥çš„å¯¹æ–¹åœ°å€
+ * @wait_seconds: ç­‰å¾…è¶…æ—¶ç§’æ•°ï¼Œå¦‚æœä¸º0è¡¨ç¤ºæ­£å¸¸æ¨¡å¼
+ * æˆåŠŸï¼ˆæœªè¶…æ—¶ï¼‰è¿”å›0ï¼Œå¤±è´¥è¿”å›-1ï¼Œè¶…æ—¶è¿”å›-1å¹¶ä¸”errno = ETIMEDOUT
  */
 int connect_timeout(int fd, struct sockaddr_in *addr, unsigned int wait_seconds)
 {
@@ -298,7 +298,7 @@ int connect_timeout(int fd, struct sockaddr_in *addr, unsigned int wait_seconds)
 		timeout.tv_usec = 0;
 		do
 		{
-			/* Ò»Á¿Á¬½Ó½¨Á¢£¬Ì×½Ó×Ö¾Í¿ÉĞ´ */
+			/* ä¸€é‡è¿æ¥å»ºç«‹ï¼Œå¥—æ¥å­—å°±å¯å†™ */
 			ret = select(fd + 1, NULL, &connect_fdset, NULL, &timeout);
 		} while (ret < 0 && errno == EINTR);
 		if (ret == 0)
@@ -310,8 +310,8 @@ int connect_timeout(int fd, struct sockaddr_in *addr, unsigned int wait_seconds)
 			return -1;
 		else if (ret == 1)
 		{
-			/* ret·µ»ØÎª1£¬¿ÉÄÜÓĞÁ½ÖÖÇé¿ö£¬Ò»ÖÖÊÇÁ¬½Ó½¨Á¢³É¹¦£¬Ò»ÖÖÊÇÌ×½Ó×Ö²úÉú´íÎó£¬*/
-			/* ´ËÊ±´íÎóĞÅÏ¢²»»á±£´æÖÁerrno±äÁ¿ÖĞ£¬Òò´Ë£¬ĞèÒªµ÷ÓÃgetsockoptÀ´»ñÈ¡¡£ */
+			/* retè¿”å›ä¸º1ï¼Œå¯èƒ½æœ‰ä¸¤ç§æƒ…å†µï¼Œä¸€ç§æ˜¯è¿æ¥å»ºç«‹æˆåŠŸï¼Œä¸€ç§æ˜¯å¥—æ¥å­—äº§ç”Ÿé”™è¯¯ï¼Œ*/
+			/* æ­¤æ—¶é”™è¯¯ä¿¡æ¯ä¸ä¼šä¿å­˜è‡³errnoå˜é‡ä¸­ï¼Œå› æ­¤ï¼Œéœ€è¦è°ƒç”¨getsockoptæ¥è·å–ã€‚ */
 			int err;
 			socklen_t socklen = sizeof(err);
 			int sockoptret = getsockopt(fd, SOL_SOCKET, SO_ERROR, &err, &socklen);
@@ -338,11 +338,11 @@ int connect_timeout(int fd, struct sockaddr_in *addr, unsigned int wait_seconds)
 }
 
 /**
- * readn - ¶ÁÈ¡¹Ì¶¨×Ö½ÚÊı
- * @fd: ÎÄ¼şÃèÊö·û
- * @buf: ½ÓÊÕ»º³åÇø
- * @count: Òª¶ÁÈ¡µÄ×Ö½ÚÊı
- * ³É¹¦·µ»Øcount£¬Ê§°Ü·µ»Ø-1£¬¶Áµ½EOF·µ»Ø<count
+ * readn - è¯»å–å›ºå®šå­—èŠ‚æ•°
+ * @fd: æ–‡ä»¶æè¿°ç¬¦
+ * @buf: æ¥æ”¶ç¼“å†²åŒº
+ * @count: è¦è¯»å–çš„å­—èŠ‚æ•°
+ * æˆåŠŸè¿”å›countï¼Œå¤±è´¥è¿”å›-1ï¼Œè¯»åˆ°EOFè¿”å›<count
  */
 ssize_t readn(int fd, void *buf, size_t count)
 {
@@ -369,11 +369,11 @@ ssize_t readn(int fd, void *buf, size_t count)
 }
 
 /**
- * writen - ·¢ËÍ¹Ì¶¨×Ö½ÚÊı
- * @fd: ÎÄ¼şÃèÊö·û
- * @buf: ·¢ËÍ»º³åÇø
- * @count: Òª¶ÁÈ¡µÄ×Ö½ÚÊı
- * ³É¹¦·µ»Øcount£¬Ê§°Ü·µ»Ø-1
+ * writen - å‘é€å›ºå®šå­—èŠ‚æ•°
+ * @fd: æ–‡ä»¶æè¿°ç¬¦
+ * @buf: å‘é€ç¼“å†²åŒº
+ * @count: è¦è¯»å–çš„å­—èŠ‚æ•°
+ * æˆåŠŸè¿”å›countï¼Œå¤±è´¥è¿”å›-1
  */
 ssize_t writen(int fd, const void *buf, size_t count)
 {
@@ -400,11 +400,11 @@ ssize_t writen(int fd, const void *buf, size_t count)
 }
 
 /**
- * recv_peek - ½ö½ö²é¿´Ì×½Ó×Ö»º³åÇøÊı¾İ£¬µ«²»ÒÆ³ıÊı¾İ
- * @sockfd: Ì×½Ó×Ö
- * @buf: ½ÓÊÕ»º³åÇø
- * @len: ³¤¶È
- * ³É¹¦·µ»Ø>=0£¬Ê§°Ü·µ»Ø-1
+ * recv_peek - ä»…ä»…æŸ¥çœ‹å¥—æ¥å­—ç¼“å†²åŒºæ•°æ®ï¼Œä½†ä¸ç§»é™¤æ•°æ®
+ * @sockfd: å¥—æ¥å­—
+ * @buf: æ¥æ”¶ç¼“å†²åŒº
+ * @len: é•¿åº¦
+ * æˆåŠŸè¿”å›>=0ï¼Œå¤±è´¥è¿”å›-1
  */
 ssize_t recv_peek(int sockfd, void *buf, size_t len)
 {
@@ -418,49 +418,47 @@ ssize_t recv_peek(int sockfd, void *buf, size_t len)
 }
 
 /**
- * readline - °´ĞĞ¶ÁÈ¡Êı¾İ
- * @sockfd: Ì×½Ó×Ö
- * @buf: ½ÓÊÕ»º³åÇø
- * @maxline: Ã¿ĞĞ×î´ó³¤¶È
- * ³É¹¦·µ»Ø>=0£¬Ê§°Ü·µ»Ø-1
+ * readline - æŒ‰è¡Œè¯»å–æ•°æ®
+ * @sockfd: å¥—æ¥å­—
+ * @buf: æ¥æ”¶ç¼“å†²åŒº
+ * @maxline: æ¯è¡Œæœ€å¤§é•¿åº¦
+ * æˆåŠŸè¿”å›>=0ï¼Œå¤±è´¥è¿”å›-1
  */
-ssize_t readline(int sockfd, void *buf, size_t maxline)
+ssize_t readline(int sockfd, void* buf, size_t maxline)
 {
 	int ret;
 	int nread;
-	char *bufp = buf;
+	char* bufp = buf;
 	int nleft = maxline;
-	while (1)
-	{
+	int count = 0;
+	while (1) {
 		ret = recv_peek(sockfd, bufp, nleft);
 		if (ret < 0)
-			return ret;
+			return ret; // è¿”å›å°äº0è¡¨ç¤ºå¤±è´¥
 		else if (ret == 0)
-			return ret;
+			return ret; //è¿”å›0è¡¨ç¤ºå¯¹æ–¹å…³é—­è¿æ¥äº†
 
 		nread = ret;
 		int i;
-		for (i=0; i<nread; i++)
-		{
-			if (bufp[i] == '\n')
-			{
-				ret = readn(sockfd, bufp, i+1);
+		for (i = 0; i < nread; i++) {
+			if (bufp[i] == '\n') {
+	 			ret = readn(sockfd, bufp, i+1);
 				if (ret != i+1)
 					exit(EXIT_FAILURE);
 
-				return ret;
+				bufp[iï¼‹1] = '\0';
+				return ret + count;
 			}
 		}
-
 		if (nread > nleft)
 			exit(EXIT_FAILURE);
-
 		nleft -= nread;
 		ret = readn(sockfd, bufp, nread);
 		if (ret != nread)
 			exit(EXIT_FAILURE);
 
 		bufp += nread;
+		count += nread;
 	}
 
 	return -1;
@@ -649,7 +647,7 @@ int lock_read_file(int fd)
 	
 	do
 	{
-		ret = fcntl(fd, F_SETLKW, &lockfile); //×èÈû
+		ret = fcntl(fd, F_SETLKW, &lockfile); //é˜»å¡
 	}
 	while (ret == -1 && errno == EINTR);
 	
@@ -668,7 +666,7 @@ int lock_write_file(int fd)
 	
 	do
 	{
-		ret = fcntl(fd, F_SETLKW, &lockfile); //×èÈû
+		ret = fcntl(fd, F_SETLKW, &lockfile); //é˜»å¡
 	}
 	while (ret == -1 && errno == EINTR);
 	
@@ -685,7 +683,7 @@ int unlock_file(int fd)
 	lockfile.l_start = 0;
 	lockfile.l_len = 0;
 
-	ret = fcntl(fd, F_SETLK, &lockfile); //²»×èÈû
+	ret = fcntl(fd, F_SETLK, &lockfile); //ä¸é˜»å¡
 	return ret;
 }
 
@@ -724,7 +722,7 @@ void nano_sleep(double time_sleep)
 
 }
 
-//¿ªÆôfdÄÜ¹»½ÓÊÕ´øÍâÊı¾İµÄ¹¦ÄÜ
+//å¼€å¯fdèƒ½å¤Ÿæ¥æ”¶å¸¦å¤–æ•°æ®çš„åŠŸèƒ½
 void active_oobinline(int fd)
 {
 	int ret;
@@ -736,9 +734,9 @@ void active_oobinline(int fd)
 	}
 }
 
-// µ±fd ²úÉú´øÍâÊı¾İÊ±»á²úÉúSIGURGĞÅºÅ
-// º¯Êı¿ªÆôµ±Ç°½ø³Ì½ÓÊÕSIGURGĞÅºÅµÄ¹¦ÄÜ
-// ÔÚĞÅºÅ´¦Àíº¯ÊıÖĞÈ¥½ÓÊÕ´øÍâÊı¾İ
+// å½“fd äº§ç”Ÿå¸¦å¤–æ•°æ®æ—¶ä¼šäº§ç”ŸSIGURGä¿¡å·
+// å‡½æ•°å¼€å¯å½“å‰è¿›ç¨‹æ¥æ”¶SIGURGä¿¡å·çš„åŠŸèƒ½
+// åœ¨ä¿¡å·å¤„ç†å‡½æ•°ä¸­å»æ¥æ”¶å¸¦å¤–æ•°æ®
 void active_sigurg(int fd)
 {
 	int ret;

@@ -64,7 +64,7 @@ ssize_t recv_peek(int sockfd, void* buf, size_t len)
 	}
 }
 
-/* 读到'\n'就返回，一行最多为maxline个字符 */
+/* 读到'\n'就返回，加上'\n' 一行最多为maxline个字符 */
 ssize_t readline(int sockfd, void* buf, size_t maxline)
 {
 	int ret;
@@ -87,7 +87,6 @@ ssize_t readline(int sockfd, void* buf, size_t maxline)
 				if (ret != i+1)
 					exit(EXIT_FAILURE);
 				
-				bufp[i＋1] = '\0';
 				return ret + count;
 			}
 		}

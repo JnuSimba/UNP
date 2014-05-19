@@ -24,17 +24,13 @@
 		exit(EXIT_FAILURE); \
 	} while (0)
 
-/* 例如：web的80端口，它一直处于监听状态。当有多个客户端同时请求时，就为它们建立一个等待队列。
- * 每个三次握手完成后，就进入另一个就绪队列开始处理，同时fork一个子进程(此socket已非最初的socket，
- * 原来的socket继续监听，它把通讯的任务交给了子socket(端口号不同))，依靠四元组<源ip,源端口，目的ip，目的端口>区别各个进程，
- * 实现并行通信。FTP，SNMP其实都是这个原理。*/
+
 void do_echoser(int);
 
 void handler(int sig)
 {
 /* 	wait(NULL); //只能等待第一个退出的子进程 */
-	/* 即使因为几个连接同时断开，信号因不能排队而父进程只收到一个信号
-	 * 直到已经waitpid到所有子进程，返回0，才退出循环 */
+	
 	while (waitpid(-1, NULL,WNOHANG) > 0)
 		;
 }

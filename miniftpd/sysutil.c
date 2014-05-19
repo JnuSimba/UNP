@@ -95,7 +95,7 @@ int getlocalip(char *ip)
 int getlocalip(char* ipaddr)
 {
 
-	int sock_get_ip; 
+    int sock_get_ip; 
   
     struct   sockaddr_in *sin;  
     struct   ifreq ifr_ip;     
@@ -118,7 +118,7 @@ int getlocalip(char* ipaddr)
    
     close( sock_get_ip ); 
 	
-	return 1;
+    return 1;
 }
 
 

@@ -1,5 +1,5 @@
 /*************************************************************************
-	> File Name: echoser_udp.c
+	> File Name: echoser_cli.c
 	> Author: Simba
 	> Mail: dameng34@163.com 
 	> Created Time: Sun 03 Mar 2013 06:13:55 PM CST
@@ -38,12 +38,8 @@ void echo_cli(int sock)
 	char recvbuf[1024] = {0};
 	while (fgets(sendbuf, sizeof(sendbuf), stdin) != NULL)
 	{	
-		/* connect没有绑定客户端的端口，而sendto时会绑定，如果客户端有多个ip，调用这两个函数
-		 * 的参数（远程地址）会决定从哪个ip出去  */
-		/* sendto只是把Buf的数据拷贝到sock对应的缓冲区中，若服务器未开启，协议栈返回一个ICMP异步错误
-		 * 如果前面调用了connect“建立”了一个连接，则recvfrom时能收到这个错误，否则收不到而一直阻塞*/
-		/*sendto(sock, sendbuf, strlen(sendbuf), 0, (struct sockaddr*)&servaddr, sizeof(servaddr));*/
-		/*sendto(sock, sendbuf, strlen(sendbuf), 0, NULL, 0);*/
+	
+	//	sleep(10);
 		
 		send(sock, sendbuf, strlen(sendbuf), 0);
 	

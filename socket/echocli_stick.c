@@ -61,6 +61,8 @@ int main(void)
 		writen(sock, sendbuf, sizeof(sendbuf)); //发送定长包，不会发生粘包问题，但这样加重了网络负担
 		readn(sock, recvbuf, sizeof(recvbuf)); 
 	*/
+	// 也就是因为结构体没有填充字符，才能认为发出去就是4+n个字节流
+	// 最好是将需要发送的数据填充到char 数组发出，就不存在结构体对齐问题
 		writen(sock, &sendbuf, 4+n); //自己设定包之间的界定为4字节，分两次读取数据，避免粘包问题
 									// 且不会发送固定长度的包，不会加重网络负担
 		int ret = readn(sock, &recvbuf.len, 4);

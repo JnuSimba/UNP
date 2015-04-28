@@ -144,7 +144,7 @@ bool GetLocalIp(uint32_t *ip) {
 
     struct ifaddrs *ptr = NULL;
     if (getifaddrs(&ptr) != 0) {
-        fprintf(stderr, "getifaddrs() error: %m.\n");
+        fprintf(stderr, "getifaddrs() error\n");
         return false;
     }
 

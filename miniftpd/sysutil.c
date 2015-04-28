@@ -102,7 +102,7 @@ int getlocalip(char* ipaddr)
   
     if ((sock_get_ip=socket(AF_INET, SOCK_STREAM, 0)) == -1)  
     {  
-         printf("socket create failse...GetLocalIp!/n");  
+         printf("socket create fail...GetLocalIp!/n");  
          return 0;  
     }  
      

@@ -4,7 +4,7 @@ CFLAGS=-Wall -g
 BIN=byteorder addr_in echoser echocli echoser_fork p2pser p2pcli echoser_stick echocli_stick \
     getiplist echoser_recv_peek echocli_recv_peek echocli_5sock echocli_select echoser_select \
 	echocli_select_shutdown echoser_timeout echocli_timeout nofilelimit echoser_poll echoser_epoll \
-    conntest echoser_udp  echocli_udp trunc charser charcli \
+    conntest echoser_udp  echocli_udp trunc chatser chatcli \
 	echoser_unixdomain echocli_unixdomain socketpair uxdomsock_sendfd
 all:$(BIN) 
 echoser_recv_peek: echoser_recv_peek.o read_write.o
@@ -33,9 +33,9 @@ echoser_poll: echoser_poll.o read_write.o
 	g++ $(CFLAGS) -c $< -o $@
 echoser_epoll: echoser_epoll.o read_write.o sysutil.o
 	g++ $(CFLAGS) $^ -o $@
-charser: charser.o 
+chatser: chatser.o 
 	g++ $(CFLAGS) $^ -o $@
-charcli: charcli.o 
+chatcli: chatcli.o 
 	g++ $(CFLAGS) $^ -o $@
 
 clean:

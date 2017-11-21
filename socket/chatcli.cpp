@@ -10,7 +10,7 @@
 #include <errno.h>
 #include <string.h>
 
-#include "char_public.h"
+#include "chat_public.h"
 
 #define ERR_EXIT(m) \
         do \

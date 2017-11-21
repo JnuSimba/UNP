@@ -114,7 +114,7 @@ int main(void)
 			conn = client[i].fd;
 			if (conn == -1)
 				continue;
-			if (client[i].events & POLLIN) {
+			if (client[i].revents & POLLIN) {
 				
 				char recvbuf[1024] = {0};
 				int ret = readline(conn, recvbuf, 1024);
